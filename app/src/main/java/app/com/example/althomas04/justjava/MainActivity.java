@@ -1,7 +1,6 @@
 package app.com.example.althomas04.justjava;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -25,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
         int price = calculatePrice();
         if (price > 0){
-        String priceMessage = "Total " + NumberFormat.getCurrencyInstance().format(price);
-        priceMessage = priceMessage + "\n Thank You!";
+            String priceMessage = createOrderSummary(price);
         displayMessage(priceMessage);}
         else reset(view);
     }
@@ -35,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given quantity value on the screen.
      */
     private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(
-                R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        String finalQuantity = "" + number;
+        quantityTextView.setText(finalQuantity);
     }
 
     /**
@@ -45,18 +43,27 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void displayMessage(String message) {
-        if (message != "0") {
-            TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-            priceTextView.setText(message);
+        if (!message.equals("0")) {
+            TextView summaryTextView = (TextView) findViewById(R.id.summary_text_view);
+            summaryTextView.setText(message);
         } else {
-            TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-            priceTextView.setText("$0");
+            TextView summaryTextView = (TextView) findViewById(R.id.summary_text_view);
+            summaryTextView.setText("$0");
         }
     }
 
     private int calculatePrice(){
         int pricePerCup = 4;
         return(quantity * pricePerCup);
+    }
+
+    private String createOrderSummary(int priceOfOrder) {
+        String totalCurrencyPrice = NumberFormat.getCurrencyInstance().format(priceOfOrder);
+        String orderSummary = "Name: Alpha Albert " +
+                "\nQuantity: " + quantity +
+                "\nTotal: " + totalCurrencyPrice +
+                "\nThank You";
+        return orderSummary;
     }
 
     int quantity = 0;
