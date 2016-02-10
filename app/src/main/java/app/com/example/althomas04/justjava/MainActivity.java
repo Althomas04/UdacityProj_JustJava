@@ -3,6 +3,7 @@ package app.com.example.althomas04.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -57,9 +58,20 @@ public class MainActivity extends AppCompatActivity {
         return(quantity * pricePerCup);
     }
 
+    String yesWhippedCream = "";
+
+    public void hasWhippedCreamChecked(View view) {
+        if (true) {
+            yesWhippedCream = "\n+Whipped Cream";
+        } else {
+            yesWhippedCream = "";
+        }
+    }
+
     private String createOrderSummary(int priceOfOrder) {
         String totalCurrencyPrice = NumberFormat.getCurrencyInstance().format(priceOfOrder);
-        String orderSummary = "Name: Alpha Albert " +
+        String orderSummary = "Name: Alpha Albert" +
+                yesWhippedCream +
                 "\nQuantity: " + quantity +
                 "\nTotal: " + totalCurrencyPrice +
                 "\nThank You";
@@ -86,5 +98,7 @@ public class MainActivity extends AppCompatActivity {
         String resetMessage = "0";
         display(quantity);
         displayMessage(resetMessage);
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        whippedCreamCheckBox.setChecked(false);
     }
 }
