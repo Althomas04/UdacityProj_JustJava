@@ -25,9 +25,19 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method is called when the EditText view is clicked.
-     * It displays the cursor and the keyboard in edit mode, and hides them when the user taps on another part of the app.
      */
-    
+
+    public void onClickEditName(View view) {
+        View parentView = findViewById(R.id.parent_view);
+        parentView.setFocusableInTouchMode(true);
+        editName(view);
+    }
+
+    /**
+     * This method displays the cursor in edit mode,
+     * and calls on the hideKeyboard method when the user taps on another part of the screen.
+     */
+
     public void editName(View view) {
         final EditText nameEditText = (EditText) findViewById(R.id.customer_name);
         if (view.getId() == nameEditText.getId()) {
@@ -86,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         quantity = quantity + 1;
         display(quantity);
     }
-
     public void decrement(View view) {
         if (quantity >= 1) {
             quantity = quantity - 1;
