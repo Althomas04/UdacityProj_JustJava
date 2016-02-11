@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFF3E0"
-    android:gravity="center"
     tools:context="app.com.example.althomas04.justjava.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/parent_view"
+    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:hint="Name"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:onClick="editName"
+            android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,6 +46,16 @@
         android:textSize="16sp"
         android:paddingLeft="24dp"
         android:onClick="hasWhippedCreamChecked" />
+
+        <CheckBox
+            android:id="@+id/chocolate_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Chocolate"
+            android:textSize="16sp"
+            android:paddingLeft="24dp"
+            android:onClick="hasChocolateChecked" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,13 +110,13 @@
         android:textColor="#9f3730"/>
 
     <TextView
-        android:id="@+id/summary_text_view"
+        android:id="@+id/order_summary_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="$0"
         android:textColor="#2E0708"
-        android:textSize="24sp" />
+        android:textAppearance="?android:textAppearanceMedium" />
 
     <Button
         android:layout_width="wrap_content"
@@ -100,8 +129,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
         android:onClick="reset"
         android:text="Reset" />
 
 </LinearLayout>
+
+</ScrollView>
