@@ -1,6 +1,8 @@
 package app.com.example.althomas04.justjava;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -68,21 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
     String yesWhippedCream = "";
     String yesChocolate = "";
+    int whippedCreamPrice = 0;
+    int chocolatePrice = 0;
 
     public void hasWhippedCreamChecked(View view) {
-        if (true) {
-            yesWhippedCream = "\n+Whipped Cream";
-        } else {
-            yesWhippedCream = "";
-        }
+        yesWhippedCream = getString(R.string.yes_whipped_cream_text);
+        whippedCreamPrice = 1;
     }
 
     public void hasChocolateChecked(View view) {
-        if (true) {
-            yesChocolate = "\n+Chocolate";
-        } else {
-            yesChocolate = "";
-        }
+        yesChocolate = getString(R.string.yes_chocolate_text);
+        chocolatePrice = 2;
     }
 
     /**
@@ -99,9 +97,7 @@ public class MainActivity extends AppCompatActivity {
     public void decrement(View view) {
         if (quantity >= 1) {
             quantity = quantity - 1;
-        } else {
-            quantity = 0;
-        }
+        } else return;
         display(quantity);
     }
 
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the updated quantity value on the screen.
      */
     private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity_number_text_view);
         String finalQuantity = "" + number;
         quantityTextView.setText(finalQuantity);
     }
@@ -133,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int calculateFinalPrice() {
         int pricePerCup = 4;
-        return (quantity * pricePerCup);
+        return (quantity * (pricePerCup + whippedCreamPrice + chocolatePrice));
     }
 
     /**
@@ -146,11 +142,12 @@ public class MainActivity extends AppCompatActivity {
         EditText nameInserted = (EditText) findViewById(R.id.customer_name);
         customerName = nameInserted.getText().toString();
         String totalCurrencyPrice = NumberFormat.getCurrencyInstance().format(priceOfOrder);
-        return ("Name: " + customerName +
-                yesWhippedCream + yesChocolate +
-                "\nQuantity: " + quantity +
-                "\nTotal: " + totalCurrencyPrice +
-                "\nThank You");
+        return (getString(R.string.name_field_indicator) + " " + customerName +
+                "\n" + yesWhippedCream +
+                "\n" + yesChocolate +
+                "\n" + getString(R.string.quantity_field_indicator) + " " + quantity +
+                "\n" + getString(R.string.total_field_indicator) + " " + totalCurrencyPrice +
+                "\n" + getString(R.string.thank_you_text));
     }
 
     /**
@@ -159,11 +156,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayOrderSummary(String message) {
         if (!message.equals("0")) {
-            TextView summaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+            TextView summaryTextView = (TextView) findViewById(R.id.display_order_summary_text_view);
             summaryTextView.setText(message);
         } else {
-            TextView summaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-            summaryTextView.setText("$0");
+            TextView summaryTextView = (TextView) findViewById(R.id.display_order_summary_text_view);
+            summaryTextView.setText("");
         }
     }
 
@@ -176,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
         quantity = 0;
         yesWhippedCream = "";
         yesChocolate = "";
+        whippedCreamPrice = 0;
+        chocolatePrice = 0;
         String resetSummary = "0";
         display(quantity);
         displayOrderSummary(resetSummary);
@@ -183,6 +182,27 @@ public class MainActivity extends AppCompatActivity {
         whippedCreamCheckBox.setChecked(false);
         CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
         chocolateCheckBox.setChecked(false);
+    }
+
+    /**
+     * The following two methods are called on when email order is clicked.
+     * They compose an email subject and a order summary text, and sends an intent to an email app.
+     */
+    public void emailOrder(View view) {
+        TextView summaryTextView = (TextView) findViewById(R.id.display_order_summary_text_view);
+        String emailSubject = customerName + getString(R.string.subject_message);
+        String emailText = summaryTextView.getText().toString();
+        composeEmail(emailSubject, emailText);
+    }
+
+    public void composeEmail(String subject, String text) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
 }

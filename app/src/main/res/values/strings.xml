@@ -1,3 +1,24 @@
 <resources>
+
     <string name="app_name">Just Java</string>
+    <string name="name_hint">Name</string>
+    <string name="toppings_text">TOPPINGS</string>
+    <string name="whipped_cream_text">Whipped Cream</string>
+    <string name="chocolate_text">Chocolate</string>
+    <string name="quantity_text">QUANTITY</string>
+    <string name="decrement_text">-</string>
+    <string name="zero_quantity">0</string>
+    <string name="increment_text">+</string>
+    <string name="order_summary_text">Order Summary</string>
+    <string name="order_button_text">ORDER</string>
+    <string name="reset_button_text">Reset</string>
+    <string name="email_button_text">Email Order</string>
+    <string name="yes_whipped_cream_text">+Whipped Cream</string>
+    <string name="yes_chocolate_text">+Chocolate</string>
+    <string name="name_field_indicator">Name: </string>
+    <string name="quantity_field_indicator">Quantity: </string>
+    <string name="total_field_indicator">Total: </string>
+    <string name="thank_you_text">Thank You</string>
+    <string name="subject_message">\'s Frappuchino Order</string>
+
 </resources>
